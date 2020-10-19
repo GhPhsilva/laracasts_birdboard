@@ -20,19 +20,20 @@ class ProjectsController extends Controller
             'description' => 'required',
         ]);
 
-        auth()->user()->projects()->create($attributes);
+        $project = auth()->user()->projects()->create($attributes);
 
-        return redirect('/projects');
+        return redirect($project->path());
     }
 
     public function show(Project $project)
     {
-        if(auth()->user()->isNot($project->owner))
+        if (auth()->user()->isNot($project->owner))
             abort(403);
         return view('projects.show', compact('project'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('projects.create');
     }
 }

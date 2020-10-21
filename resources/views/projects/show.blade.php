@@ -49,6 +49,15 @@
                         <button class="button" type="submit">Save</button>
                     </form>
                 </div>
+                @if ($errors->any())
+                    <div class="field mt-6">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-sm text-red">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
             <div class="lg:w-1/4 px-3">
                 @include('projects.card')

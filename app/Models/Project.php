@@ -17,15 +17,28 @@ class Project extends Model
         return "/projects/{$this->id}";
     }
 
-    public function owner() {
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function tasks() {
+    public function tasks()
+    {
         return $this->hasMany(Task::class);
     }
 
-    public function addTask($body) {
+    public function addTask($body)
+    {
         return $this->tasks()->create(compact('body'));
+    }
+
+    public function activitys()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    public function recordActivity($description)
+    {
+        $this->activitys()->create(compact('description'));
     }
 }

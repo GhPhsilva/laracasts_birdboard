@@ -16,6 +16,7 @@ use App\Http\Controllers\ProjectTasksController;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });

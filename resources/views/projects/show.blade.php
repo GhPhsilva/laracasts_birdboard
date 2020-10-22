@@ -39,13 +39,11 @@
 
                 <div>
                     <h2 class="text-grey font-normal text-lg mb-3">General Notes</h2>
-                    <form action="{{ $project->path() }}">
+                    <form action="{{ $project->path() }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <textarea name="notes" placeholder="Anything special that you want to make note of ?"
-                            class="card w-full" style="min-height: 200px">
-                        {{ $project->notes }}
-                        </textarea>
+                            class="card w-full" style="min-height: 200px">{{ $project->notes }}</textarea>
                         <button class="button" type="submit">Save</button>
                     </form>
                 </div>
@@ -61,6 +59,16 @@
             </div>
             <div class="lg:w-1/4 px-3">
                 @include('projects.card')
+                @if ($errors->any())
+                    <div class="field mt-6">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li class="text-sm text-red">{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @include('projects.activity.card')
             </div>
         </div>
     </main>

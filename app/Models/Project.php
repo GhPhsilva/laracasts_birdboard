@@ -3,16 +3,17 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
-    use HasFactory;
+    use HasFactory, RecordsActivity;
 
     protected $guarded = [];
 
-    public $old = [];
+
 
     public function path()
     {
@@ -37,18 +38,5 @@ class Project extends Model
     public function activitys()
     {
         return $this->hasMany(Activity::class)->latest();
-    }
-
-    public function recordActivity($description)
-    {
-        var_dump(array_diff($this->toArray(), $this->old));
-        // var_dump($this->old);
-        $this->activitys()->create([
-            'description' => $description,
-            'changes' => [
-                'before' => array_diff($this->old, $this->toArray()),
-                'after' => $this->toArray()
-            ]
-        ]);
     }
 }

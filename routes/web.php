@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectsController;
 use App\Http\Controllers\ProjectTasksController;
+use App\Http\Controllers\ProjectInvitationsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('/projects/{project}/tasks', [ProjectTasksController::class, 'store']);
     Route::patch('/projects/{project}/tasks/{task}', [ProjectTasksController::class, 'update']);
+
+    Route::post('/projects/{project}/invitations', [ProjectInvitationsController::class, 'store']);
 });
 
 Auth::routes();

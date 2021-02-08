@@ -150,4 +150,15 @@ class ManageProjectsTest extends TestCase
         $this->get($project->path() . '/edit')->assertOk();
         $this->assertDatabaseHas('projects', $attributes);
     }
+
+    public function test_a_user_can_see_all_projects_they_have_been_inveted_to_on_thei_dashboard()
+    {
+        $user = $this->singIn();
+
+        $project = ProjectFactory::create();
+
+        $project->invite($user);
+
+        $this->get('/projects')->assertSee($project->title);
+    }
 }
